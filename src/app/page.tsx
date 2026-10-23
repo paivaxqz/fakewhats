@@ -4,14 +4,16 @@ import { CopyButton } from "@/components/copy-button"
 import { examples, INSTALL_CMD, REPO_URL } from "@/lib/examples"
 import { WhatsAppChat } from "@/registry/fakewhats/whatsapp-chat/whatsapp-chat"
 
-const snippet = `import { WhatsAppChat } from "@/components/fakewhats/whatsapp-chat"
+const snippet = `import "fakewhats/styles.css"
+import { WhatsAppChat } from "fakewhats"
 import data from "./conversation.json"
 
 <WhatsAppChat data={data} variant="ios" theme="dark" frame />`
 
-const aiSnippet = `Use <WhatsAppChat> from components/fakewhats.
-Read components/fakewhats/schema.ts for the data format.
-Build a pizza ordering bot with list menus and buttons.`
+const aiSnippet = `Mock WhatsApp screens use WhatsAppChat from "fakewhats".
+Import "fakewhats/styles.css" once.
+Fill the data prop. The type is Conversation.
+JSON can use "$schema": "https://fakewhats.vercel.app/schema.json".`
 
 export default function Home() {
   const [support, pizza, sneaker, , groupTrip] = examples
@@ -24,7 +26,7 @@ export default function Home() {
 
         <div className="mx-auto max-w-5xl px-4 pb-20 pt-16 sm:px-6 sm:pt-24">
           <div className="max-w-2xl">
-            <p className="text-sm font-medium text-[#25d366]">shadcn registry component</p>
+            <p className="text-sm font-medium text-[#25d366]">React package</p>
 
             <h1 className="mt-3 text-3xl font-bold leading-tight tracking-tight sm:text-5xl">
               Pixel-perfect WhatsApp mocks from a single JSON object
@@ -115,8 +117,8 @@ export default function Home() {
               desc: "Pixel-matched from real screenshots. Both platforms, both themes, with optional phone frame.",
             },
             {
-              title: "You own the code",
-              desc: "The shadcn CLI copies the source into your project. Edit anything. Zero runtime deps beyond React.",
+              title: "npm i fakewhats",
+              desc: "Types ship with the package, and the CSS is one import. The shadcn registry is still there if you want the source in the repo.",
             },
             {
               title: "Full message types",

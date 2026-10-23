@@ -23,4 +23,5 @@ export const examples: Example[] = [
 
 export const SITE_URL = "https://fakewhats.vercel.app"
 export const REPO_URL = "https://github.com/paivaxqz/fakewhats"
-export const INSTALL_CMD = `npx shadcn@latest add ${SITE_URL}/r/whatsapp-chat.json`
+export const INSTALL_CMD = "npm i fakewhats"
+export const SHADCN_CMD = `npx shadcn@latest add ${SITE_URL}/r/whatsapp-chat.json`

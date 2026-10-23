@@ -1,0 +1,705 @@
+{
+  "$id": "https://fakewhats.vercel.app/schema.json",
+  "title": "fakewhats Conversation",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "Optional JSON Schema URL, for editor autocomplete.",
+      "type": "string"
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Contact or business name shown in the header."
+        },
+        "avatar": {
+          "description": "Avatar image URL. If omitted, a default silhouette is shown.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Subtitle under the name, e.g. \"online\", \"typing...\", \"last seen today at 10:00\".",
+          "type": "string"
+        },
+        "verified": {
+          "description": "Shows the green verified badge next to the name.",
+          "type": "boolean"
+        },
+        "story": {
+          "description": "Status (story) ring around the avatar: \"new\" = green ring, \"seen\" = grey ring.",
+          "type": "string",
+          "enum": [
+            "new",
+            "seen"
+          ]
+        },
+        "business": {
+          "description": "Business chat header: iOS shows a single call button with a menu arrow instead of the contact/video/call buttons.",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Optional stable id. Not rendered.",
+                "type": "string"
+              },
+              "from": {
+                "type": "string",
+                "enum": [
+                  "me",
+                  "them"
+                ],
+                "description": "\"me\" = outgoing (right side, green bubble). \"them\" = the contact (left side)."
+              },
+              "time": {
+                "description": "Time shown inside the bubble, e.g. \"10:42\" or \"9:05 PM\".",
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "sent",
+                  "delivered",
+                  "read"
+                ],
+                "description": "Delivery ticks for outgoing messages: pending = clock, sent = one grey tick, delivered = two grey ticks, read = two blue ticks. Ignored on incoming messages."
+              },
+              "reply": {
+                "description": "Shows a quoted message at the top of the bubble.",
+                "type": "object",
+                "properties": {
+                  "author": {
+                    "type": "string",
+                    "description": "Name shown on the quote, e.g. \"You\" or the contact name."
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Quoted text, e.g. \"Photo\" when quoting an image."
+                  },
+                  "image": {
+                    "description": "Thumbnail of the quoted photo, shown on the right of the quote (with a camera icon before the text).",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "author",
+                  "text"
+                ]
+              },
+              "reactions": {
+                "description": "Emoji reactions shown under the bubble, e.g. [\"❤️\", \"😂\"].",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forwarded": {
+                "description": "Shows the \"Forwarded\" label.",
+                "type": "boolean"
+              },
+              "edited": {
+                "description": "Shows the \"Edited\" label next to the time.",
+                "type": "boolean"
+              },
+              "starred": {
+                "description": "Shows a star next to the time.",
+                "type": "boolean"
+              },
+              "share": {
+                "description": "Shows the round forward/share button next to the bubble (WhatsApp shows it on links and media).",
+                "type": "boolean"
+              },
+              "type": {
+                "description": "Optional. Messages without a type are text.",
+                "type": "string",
+                "const": "text"
+              },
+              "text": {
+                "type": "string",
+                "description": "Message text. Supports WhatsApp formatting: *bold*, _italic_, ~strike~, `inline code`, ```monospace```, and links. Use \\n for line breaks."
+              },
+              "preview": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Bold first line, usually the page title or the domain, e.g. \"example.com\"."
+                  },
+                  "description": {
+                    "description": "Grey text under the title (up to 2 lines), e.g. the full URL.",
+                    "type": "string"
+                  },
+                  "domain": {
+                    "description": "Domain shown with a link icon at the bottom, e.g. \"example.com\".",
+                    "type": "string"
+                  },
+                  "image": {
+                    "description": "Optional thumbnail URL shown on top of the card.",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "title"
+                ],
+                "description": "Link preview card drawn at the top of the bubble."
+              }
+            },
+            "required": [
+              "from",
+              "text"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Optional stable id. Not rendered.",
+                "type": "string"
+              },
+              "from": {
+                "type": "string",
+                "enum": [
+                  "me",
+                  "them"
+                ],
+                "description": "\"me\" = outgoing (right side, green bubble). \"them\" = the contact (left side)."
+              },
+              "time": {
+                "description": "Time shown inside the bubble, e.g. \"10:42\" or \"9:05 PM\".",
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "sent",
+                  "delivered",
+                  "read"
+                ],
+                "description": "Delivery ticks for outgoing messages: pending = clock, sent = one grey tick, delivered = two grey ticks, read = two blue ticks. Ignored on incoming messages."
+              },
+              "reply": {
+                "description": "Shows a quoted message at the top of the bubble.",
+                "type": "object",
+                "properties": {
+                  "author": {
+                    "type": "string",
+                    "description": "Name shown on the quote, e.g. \"You\" or the contact name."
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Quoted text, e.g. \"Photo\" when quoting an image."
+                  },
+                  "image": {
+                    "description": "Thumbnail of the quoted photo, shown on the right of the quote (with a camera icon before the text).",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "author",
+                  "text"
+                ]
+              },
+              "reactions": {
+                "description": "Emoji reactions shown under the bubble, e.g. [\"❤️\", \"😂\"].",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forwarded": {
+                "description": "Shows the \"Forwarded\" label.",
+                "type": "boolean"
+              },
+              "edited": {
+                "description": "Shows the \"Edited\" label next to the time.",
+                "type": "boolean"
+              },
+              "starred": {
+                "description": "Shows a star next to the time.",
+                "type": "boolean"
+              },
+              "share": {
+                "description": "Shows the round forward/share button next to the bubble (WhatsApp shows it on links and media).",
+                "type": "boolean"
+              },
+              "type": {
+                "type": "string",
+                "const": "image"
+              },
+              "src": {
+                "type": "string",
+                "description": "Image URL (absolute URL, /public path, or data URI)."
+              },
+              "caption": {
+                "description": "Text under the image. Same formatting as text messages.",
+                "type": "string"
+              },
+              "aspectRatio": {
+                "description": "Width / height. Defaults to 4/3. Use 0.75 for portrait photos.",
+                "type": "number",
+                "exclusiveMinimum": 0
+              }
+            },
+            "required": [
+              "from",
+              "type",
+              "src"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Optional stable id. Not rendered.",
+                "type": "string"
+              },
+              "from": {
+                "type": "string",
+                "enum": [
+                  "me",
+                  "them"
+                ],
+                "description": "\"me\" = outgoing (right side, green bubble). \"them\" = the contact (left side)."
+              },
+              "time": {
+                "description": "Time shown inside the bubble, e.g. \"10:42\" or \"9:05 PM\".",
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "sent",
+                  "delivered",
+                  "read"
+                ],
+                "description": "Delivery ticks for outgoing messages: pending = clock, sent = one grey tick, delivered = two grey ticks, read = two blue ticks. Ignored on incoming messages."
+              },
+              "reply": {
+                "description": "Shows a quoted message at the top of the bubble.",
+                "type": "object",
+                "properties": {
+                  "author": {
+                    "type": "string",
+                    "description": "Name shown on the quote, e.g. \"You\" or the contact name."
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Quoted text, e.g. \"Photo\" when quoting an image."
+                  },
+                  "image": {
+                    "description": "Thumbnail of the quoted photo, shown on the right of the quote (with a camera icon before the text).",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "author",
+                  "text"
+                ]
+              },
+              "reactions": {
+                "description": "Emoji reactions shown under the bubble, e.g. [\"❤️\", \"😂\"].",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forwarded": {
+                "description": "Shows the \"Forwarded\" label.",
+                "type": "boolean"
+              },
+              "edited": {
+                "description": "Shows the \"Edited\" label next to the time.",
+                "type": "boolean"
+              },
+              "starred": {
+                "description": "Shows a star next to the time.",
+                "type": "boolean"
+              },
+              "share": {
+                "description": "Shows the round forward/share button next to the bubble (WhatsApp shows it on links and media).",
+                "type": "boolean"
+              },
+              "type": {
+                "type": "string",
+                "const": "audio"
+              },
+              "duration": {
+                "type": "string",
+                "description": "Voice note length, e.g. \"0:42\"."
+              },
+              "played": {
+                "description": "If true the mic icon is blue (listened). Defaults to false.",
+                "type": "boolean"
+              },
+              "progress": {
+                "description": "Playback position from 0 to 1. Defaults to 0.",
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            },
+            "required": [
+              "from",
+              "type",
+              "duration"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Optional stable id. Not rendered.",
+                "type": "string"
+              },
+              "from": {
+                "type": "string",
+                "enum": [
+                  "me",
+                  "them"
+                ],
+                "description": "\"me\" = outgoing (right side, green bubble). \"them\" = the contact (left side)."
+              },
+              "time": {
+                "description": "Time shown inside the bubble, e.g. \"10:42\" or \"9:05 PM\".",
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "sent",
+                  "delivered",
+                  "read"
+                ],
+                "description": "Delivery ticks for outgoing messages: pending = clock, sent = one grey tick, delivered = two grey ticks, read = two blue ticks. Ignored on incoming messages."
+              },
+              "reply": {
+                "description": "Shows a quoted message at the top of the bubble.",
+                "type": "object",
+                "properties": {
+                  "author": {
+                    "type": "string",
+                    "description": "Name shown on the quote, e.g. \"You\" or the contact name."
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Quoted text, e.g. \"Photo\" when quoting an image."
+                  },
+                  "image": {
+                    "description": "Thumbnail of the quoted photo, shown on the right of the quote (with a camera icon before the text).",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "author",
+                  "text"
+                ]
+              },
+              "reactions": {
+                "description": "Emoji reactions shown under the bubble, e.g. [\"❤️\", \"😂\"].",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forwarded": {
+                "description": "Shows the \"Forwarded\" label.",
+                "type": "boolean"
+              },
+              "edited": {
+                "description": "Shows the \"Edited\" label next to the time.",
+                "type": "boolean"
+              },
+              "starred": {
+                "description": "Shows a star next to the time.",
+                "type": "boolean"
+              },
+              "share": {
+                "description": "Shows the round forward/share button next to the bubble (WhatsApp shows it on links and media).",
+                "type": "boolean"
+              },
+              "type": {
+                "type": "string",
+                "const": "buttons"
+              },
+              "header": {
+                "description": "Bold line above the text.",
+                "type": "string"
+              },
+              "text": {
+                "type": "string",
+                "description": "Body text. Same formatting as text messages."
+              },
+              "footer": {
+                "description": "Small grey line under the text.",
+                "type": "string"
+              },
+              "buttons": {
+                "minItems": 1,
+                "maxItems": 3,
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "Quick reply button labels (1 to 3), rendered under the bubble."
+              }
+            },
+            "required": [
+              "from",
+              "type",
+              "text",
+              "buttons"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "Optional stable id. Not rendered.",
+                "type": "string"
+              },
+              "from": {
+                "type": "string",
+                "enum": [
+                  "me",
+                  "them"
+                ],
+                "description": "\"me\" = outgoing (right side, green bubble). \"them\" = the contact (left side)."
+              },
+              "time": {
+                "description": "Time shown inside the bubble, e.g. \"10:42\" or \"9:05 PM\".",
+                "type": "string"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "pending",
+                  "sent",
+                  "delivered",
+                  "read"
+                ],
+                "description": "Delivery ticks for outgoing messages: pending = clock, sent = one grey tick, delivered = two grey ticks, read = two blue ticks. Ignored on incoming messages."
+              },
+              "reply": {
+                "description": "Shows a quoted message at the top of the bubble.",
+                "type": "object",
+                "properties": {
+                  "author": {
+                    "type": "string",
+                    "description": "Name shown on the quote, e.g. \"You\" or the contact name."
+                  },
+                  "text": {
+                    "type": "string",
+                    "description": "Quoted text, e.g. \"Photo\" when quoting an image."
+                  },
+                  "image": {
+                    "description": "Thumbnail of the quoted photo, shown on the right of the quote (with a camera icon before the text).",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "author",
+                  "text"
+                ]
+              },
+              "reactions": {
+                "description": "Emoji reactions shown under the bubble, e.g. [\"❤️\", \"😂\"].",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "forwarded": {
+                "description": "Shows the \"Forwarded\" label.",
+                "type": "boolean"
+              },
+              "edited": {
+                "description": "Shows the \"Edited\" label next to the time.",
+                "type": "boolean"
+              },
+              "starred": {
+                "description": "Shows a star next to the time.",
+                "type": "boolean"
+              },
+              "share": {
+                "description": "Shows the round forward/share button next to the bubble (WhatsApp shows it on links and media).",
+                "type": "boolean"
+              },
+              "type": {
+                "type": "string",
+                "const": "list"
+              },
+              "header": {
+                "description": "Bold line above the text.",
+                "type": "string"
+              },
+              "text": {
+                "type": "string",
+                "description": "Body text. Same formatting as text messages."
+              },
+              "footer": {
+                "description": "Small grey line under the text.",
+                "type": "string"
+              },
+              "buttonLabel": {
+                "type": "string",
+                "description": "Label of the button that opens the list, e.g. \"See menu\"."
+              },
+              "sections": {
+                "description": "List options. Only rendered when `open` is true.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "type": "string"
+                    },
+                    "rows": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "string"
+                          },
+                          "description": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "title"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "rows"
+                  ]
+                }
+              },
+              "open": {
+                "description": "If true, renders the options sheet open over the chat (only one list should be open).",
+                "type": "boolean"
+              },
+              "selected": {
+                "description": "Title of the row shown as selected when the sheet is open.",
+                "type": "string"
+              }
+            },
+            "required": [
+              "from",
+              "type",
+              "text",
+              "buttonLabel"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "date"
+              },
+              "text": {
+                "type": "string",
+                "description": "Day separator pill, e.g. \"Today\", \"Yesterday\", \"12 March 2026\"."
+              }
+            },
+            "required": [
+              "type",
+              "text"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "system"
+              },
+              "text": {
+                "type": "string",
+                "description": "Centered yellow notice, e.g. the encryption notice or \"This chat is with a business account.\""
+              }
+            },
+            "required": [
+              "type",
+              "text"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "const": "unread"
+              },
+              "text": {
+                "type": "string",
+                "description": "Full-width banner, e.g. \"6 unread messages\"."
+              }
+            },
+            "required": [
+              "type",
+              "text"
+            ]
+          }
+        ]
+      },
+      "description": "Messages from top (oldest) to bottom (newest)."
+    },
+    "pinned": {
+      "description": "Pinned message bar under the header.",
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Text of the pinned message."
+        },
+        "total": {
+          "description": "How many messages are pinned (1 to 3). Draws that many marks on the left. Default 1.",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3
+        }
+      },
+      "required": [
+        "text"
+      ]
+    },
+    "draft": {
+      "description": "Text typed in the input bar. When set, the send button replaces the mic.",
+      "type": "string"
+    },
+    "scrollButton": {
+      "description": "Shows the round \"scroll to latest message\" button above the input bar.",
+      "type": "boolean"
+    },
+    "unreadCount": {
+      "description": "Unread number shown next to the back arrow.",
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    }
+  },
+  "required": [
+    "contact",
+    "messages"
+  ],
+  "description": "A fake WhatsApp conversation rendered by <WhatsAppChat data={...} />."
+}

@@ -1,22 +1,45 @@
 {
   "name": "fakewhats",
-  "version": "0.1.0",
-  "private": true,
+  "version": "0.2.0",
+  "description": "Pixel-perfect fake WhatsApp chat screens for React, from a typed JSON conversation.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": ["**/*.css"],
+  "files": ["dist", "README.md", "LICENSE"],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./schema.json": "./dist/schema.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "next dev",
-    "build": "npm run schema && npm run registry && next build",
+    "build": "npm run build:lib && npm run registry && next build",
+    "build:css": "tailwindcss -i registry/fakewhats/styles.entry.css -o dist/styles.css --minify",
+    "build:js": "tsup",
+    "build:lib": "npm run schema && npm run build:js && npm run build:css && node scripts/copy-package-files.mjs",
     "start": "next start",
     "lint": "eslint",
     "schema": "node scripts/build-schema.mts",
     "registry": "shadcn build"
   },
-  "dependencies": {
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19",
+    "zod": ">=4"
+  },
+  "devDependencies": {
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "zod": "^4.6.7"
-  },
-  "devDependencies": {
+    "zod": "^4.6.7",
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/roboto": "^5.3.0",
     "@tailwindcss/turbopack": "^4",
@@ -27,6 +50,8 @@
     "eslint-config-next": "16.4.2",
     "shadcn": "^4.22.1",
     "tailwindcss": "^4",
+    "@tailwindcss/cli": "^4",
+    "tsup": "^8.5.0",
     "typescript": "^5"
   }
 }

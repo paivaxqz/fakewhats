@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { CodeBlock } from "@/components/code-block"
-import { INSTALL_CMD } from "@/lib/examples"
+import { INSTALL_CMD, SHADCN_CMD } from "@/lib/examples"
 import type { Message } from "@/registry/fakewhats/whatsapp-chat/schema"
 import { ChatProvider, MessageList } from "@/registry/fakewhats/whatsapp-chat/whatsapp-chat"
 
@@ -109,7 +109,7 @@ const kinds: { type: string; note: string; messages: Message[] }[] = [
 
 const composable = `import {
   ChatProvider, ChatHeader, MessageList, ChatComposer,
-} from "@/components/fakewhats/whatsapp-chat"
+} from "fakewhats"
 
 <ChatProvider variant="android" theme="light" className="flex h-[600px] flex-col">
   <ChatHeader contact={{ name: "Ana", status: "online" }} />
@@ -122,9 +122,9 @@ const cssVars = `<WhatsAppChat
   style={{ "--wa-out": "#e1f3ff", "--wa-accent": "#0a7cff" } as React.CSSProperties}
 />`
 
-const aiSetup = `// In your prompt or AGENTS.md / CLAUDE.md:
-Mock WhatsApp screens use <WhatsAppChat> from components/fakewhats.
-The data format is in components/fakewhats/schema.ts.
+const aiSetup = `Mock WhatsApp screens use WhatsAppChat from "fakewhats".
+Import "fakewhats/styles.css" once in the app.
+Fill the data prop. The type is Conversation.
 JSON files can use "$schema": "https://fakewhats.vercel.app/schema.json".`
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
@@ -190,21 +190,25 @@ export default function DocsPage() {
       <div>
         <Section id="install" title="Installation">
           <p className="mb-4 text-sm text-zinc-500">
-            Requires React 19 and Tailwind CSS v4. The shadcn CLI copies the files into{" "}
-            <code className="font-mono text-zinc-400">components/fakewhats/</code> and installs{" "}
-            <code className="font-mono text-zinc-400">zod</code>.
+            Requires React 19. The CSS ships with the package, so Tailwind does not need to scan it.
+            zod is a peer dependency.
           </p>
           <CodeBlock code={INSTALL_CMD} title="terminal" />
+          <p className="mt-4 text-sm text-zinc-500">
+            To copy the source into the repo instead, use the shadcn registry. That path needs Tailwind CSS v4.
+          </p>
+          <CodeBlock code={SHADCN_CMD} title="terminal" />
         </Section>
 
         <Section id="usage" title="Usage">
           <CodeBlock
             title="app/page.tsx"
-            code={`import { WhatsAppChat } from "@/components/fakewhats/whatsapp-chat"
+            code={`import "fakewhats/styles.css"
+import { WhatsAppChat } from "fakewhats"
 import conversation from "./conversation.json"
 
 export default function Page() {
-  return <WhatsAppChat data={conversation} variant="ios" frame />
+  return <WhatsAppChat data={conversation} variant="ios" locale="pt" frame />
 }`}
           />
           <p className="mt-4 text-sm text-zinc-500">

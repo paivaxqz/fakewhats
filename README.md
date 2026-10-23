@@ -10,8 +10,38 @@ AI agent (Claude Code, Cursor, Codex...) can write the conversation for you.
 
 ## Install
 
-Requires React 19 and Tailwind CSS v4. Installed with the shadcn CLI, so the code
-is copied into your project (`components/fakewhats/`) and you can edit anything.
+Requires React 19. zod is a peer dependency.
+
+```bash
+npm i fakewhats
+```
+
+```tsx
+import "fakewhats/styles.css"
+import { WhatsAppChat } from "fakewhats"
+
+export default function Demo() {
+  return (
+    <WhatsAppChat
+      variant="ios"
+      locale="pt"
+      frame
+      data={{
+        contact: { name: "Lia", status: "online" },
+        messages: [
+          { type: "date", text: "Hoje" },
+          { from: "them", text: "chegou?", time: "20:41" },
+          { from: "me", text: "to no ponto", time: "20:42", status: "read" },
+        ],
+      }}
+    />
+  )
+}
+```
+
+The CSS file already contains the component styles. The app's Tailwind does not need to scan this package.
+
+To copy the source into the repo instead, use the shadcn registry. That path needs Tailwind CSS v4.
 
 ```bash
 npx shadcn@latest add https://fakewhats.vercel.app/r/whatsapp-chat.json
@@ -19,27 +49,7 @@ npx shadcn@latest add https://fakewhats.vercel.app/r/whatsapp-chat.json
 
 ## Use
 
-```tsx
-import { WhatsAppChat } from "@/components/fakewhats/whatsapp-chat"
-
-export default function Demo() {
-  return (
-    <WhatsAppChat
-      variant="android" // "ios" | "android"
-      theme="dark"      // "light" | "dark"
-      frame             // draw a phone around it
-      data={{
-        contact: { name: "Ana", status: "online" },
-        messages: [
-          { type: "date", text: "Today" },
-          { from: "them", text: "Did you see the game?", time: "20:01" },
-          { from: "me", text: "*UNREAL* ending 😱", time: "20:02", status: "read" },
-        ],
-      }}
-    />
-  )
-}
-```
+`WhatsAppChat` reads a `Conversation`. Import the type and `ConversationSchema` from `"fakewhats"` when you want the editor or a parser to check the JSON.
 
 ### Props
 
@@ -96,8 +106,10 @@ Ready-made conversations live in [`examples/`](examples).
 Tell your agent where the format is. For example in `AGENTS.md` / `CLAUDE.md`:
 
 ```md
-Mock WhatsApp screens use <WhatsAppChat> from components/fakewhats.
-The data format is described field by field in components/fakewhats/schema.ts.
+Mock WhatsApp screens use WhatsAppChat from "fakewhats".
+Import "fakewhats/styles.css" once.
+Fill the data prop. The type is Conversation.
+JSON files can use "$schema": "https://fakewhats.vercel.app/schema.json".
 ```
 
 JSON files can start with `"$schema": "https://fakewhats.vercel.app/schema.json"`

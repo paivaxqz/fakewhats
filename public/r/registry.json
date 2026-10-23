@@ -16,7 +16,8 @@
         { "path": "registry/fakewhats/whatsapp-chat/message.tsx", "type": "registry:component", "target": "components/fakewhats/message.tsx" },
         { "path": "registry/fakewhats/whatsapp-chat/chrome.tsx", "type": "registry:component", "target": "components/fakewhats/chrome.tsx" },
         { "path": "registry/fakewhats/whatsapp-chat/format.tsx", "type": "registry:component", "target": "components/fakewhats/format.tsx" },
-        { "path": "registry/fakewhats/whatsapp-chat/icons.tsx", "type": "registry:component", "target": "components/fakewhats/icons.tsx" }
+        { "path": "registry/fakewhats/whatsapp-chat/icons.tsx", "type": "registry:component", "target": "components/fakewhats/icons.tsx" },
+        { "path": "registry/fakewhats/whatsapp-chat/wallpaper.tsx", "type": "registry:component", "target": "components/fakewhats/wallpaper.tsx" }
       ]
     }
   ]
