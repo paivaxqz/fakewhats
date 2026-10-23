@@ -32,7 +32,7 @@ function parse(text: string): Parsed {
   }
 }
 
-function Segmented<T extends string>({
+function Pill<T extends string>({
   value,
   options,
   onChange,
@@ -42,14 +42,14 @@ function Segmented<T extends string>({
   onChange: (v: T) => void
 }) {
   return (
-    <div className="inline-flex rounded-lg border border-white/10 bg-white/5 p-0.5">
+    <div className="inline-flex rounded-md border border-white/8 bg-zinc-900 p-0.5">
       {options.map((o) => (
         <button
           key={o}
           type="button"
           onClick={() => onChange(o)}
-          className={`rounded-md px-2.5 py-1 text-xs font-medium ${
-            value === o ? "bg-white/15 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-300"
+          className={`rounded px-2 py-1 text-xs font-medium transition ${
+            value === o ? "bg-white/10 text-white" : "text-zinc-600 hover:text-zinc-400"
           }`}
         >
           {o}
@@ -68,9 +68,9 @@ export function Playground({ examples }: { examples: Example[] }) {
   const [frame, setFrame] = useState(true)
   const [wallpaper, setWallpaper] = useState<"doodle" | "none">("doodle")
   const [textSize, setTextSize] = useState<TextSize>("medium")
+  const [showPreview, setShowPreview] = useState(false)
 
   const parsed = useMemo(() => parse(text), [text])
-  // Keep showing the last valid conversation while the JSON is being edited.
   const [lastGood, setLastGood] = useState<Conversation>(examples[0].data)
   if (parsed.ok && parsed.data !== lastGood) setLastGood(parsed.data)
 
@@ -81,8 +81,10 @@ export function Playground({ examples }: { examples: Example[] }) {
 />`
 
   return (
-    <main className="mx-auto grid w-full max-w-7xl flex-1 gap-6 px-4 py-6 lg:grid-cols-[minmax(0,1fr)_auto]">
-      <div className="flex min-h-[70vh] flex-col gap-3">
+    <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:py-6">
+      {/* Editor panel */}
+      <div className="flex min-h-0 flex-1 flex-col gap-3">
+        {/* Controls */}
         <div className="flex flex-wrap items-center gap-2">
           <select
             value={exampleId}
@@ -91,45 +93,84 @@ export function Playground({ examples }: { examples: Example[] }) {
               setExampleId(ex.id)
               setText(JSON.stringify(ex.json, null, 2))
             }}
-            className="rounded-lg border border-white/10 bg-white/5 px-2 py-1.5 text-sm text-zinc-200"
+            className="rounded-md border border-white/8 bg-zinc-900 px-2 py-1.5 text-sm text-zinc-300"
           >
             {examples.map((ex) => (
-              <option key={ex.id} value={ex.id}>
-                {ex.label}
-              </option>
+              <option key={ex.id} value={ex.id}>{ex.label}</option>
             ))}
           </select>
-          <Segmented value={variant} options={["ios", "android"] as const} onChange={setVariant} />
-          <Segmented value={theme} options={["light", "dark"] as const} onChange={setTheme} />
-          <Segmented value={locale} options={["en", "pt", "es"] as const} onChange={setLocale} />
-          <Segmented value={wallpaper} options={["doodle", "none"] as const} onChange={setWallpaper} />
-          <Segmented value={textSize} options={["small", "medium", "large"] as const} onChange={setTextSize} />
-          <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-400">
+
+          <Pill value={variant} options={["ios", "android"] as const} onChange={setVariant} />
+          <Pill value={theme} options={["light", "dark"] as const} onChange={setTheme} />
+
+          {/* Advanced controls - hidden on small screens to save space */}
+          <div className="hidden items-center gap-2 sm:flex">
+            <Pill value={locale} options={["en", "pt", "es"] as const} onChange={setLocale} />
+            <Pill value={wallpaper} options={["doodle", "none"] as const} onChange={setWallpaper} />
+            <Pill value={textSize} options={["small", "medium", "large"] as const} onChange={setTextSize} />
+          </div>
+
+          <label className="flex items-center gap-1.5 text-xs text-zinc-500">
             <input type="checkbox" checked={frame} onChange={(e) => setFrame(e.target.checked)} />
             frame
           </label>
+
           <div className="ml-auto flex gap-2">
-            <CopyButton text={text} label="Copy JSON" />
-            <CopyButton text={jsx} label="Copy JSX" />
+            <CopyButton text={text} label="JSON" />
+            <CopyButton text={jsx} label="JSX" />
           </div>
         </div>
+
+        {/* Mobile: toggle between editor and preview */}
+        <div className="flex gap-1 rounded-md border border-white/8 bg-zinc-900 p-0.5 lg:hidden">
+          <button
+            type="button"
+            onClick={() => setShowPreview(false)}
+            className={`flex-1 rounded px-3 py-1.5 text-xs font-medium transition ${
+              !showPreview ? "bg-white/10 text-white" : "text-zinc-600"
+            }`}
+          >
+            Editor
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowPreview(true)}
+            className={`flex-1 rounded px-3 py-1.5 text-xs font-medium transition ${
+              showPreview ? "bg-white/10 text-white" : "text-zinc-600"
+            }`}
+          >
+            Preview
+          </button>
+        </div>
+
+        {/* Editor textarea */}
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           spellCheck={false}
-          className="min-h-[60vh] flex-1 resize-none rounded-xl border border-white/10 bg-white/5 p-4 font-mono text-[12.5px] leading-relaxed text-zinc-100 outline-none focus:ring-2 focus:ring-[#25d366]/50"
-        />
-        <div
-          className={`rounded-lg px-3 py-2 font-mono text-xs whitespace-pre-wrap ${
-            parsed.ok ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"
+          className={`min-h-[50vh] flex-1 resize-none rounded-lg border border-white/8 bg-zinc-900 p-4 font-mono text-[12px] leading-relaxed text-zinc-300 outline-none focus:border-[#25d366]/30 lg:block ${
+            showPreview ? "hidden" : ""
           }`}
+        />
+
+        {/* Validation */}
+        <div
+          className={`rounded-md px-3 py-2 font-mono text-xs ${
+            parsed.ok
+              ? "bg-emerald-500/5 text-emerald-500"
+              : "bg-red-500/5 text-red-400"
+          } ${showPreview ? "hidden lg:block" : ""}`}
         >
-          {parsed.ok ? "✓ Valid conversation" : parsed.error}
+          {parsed.ok ? "Valid" : parsed.error}
         </div>
       </div>
-      <div className="flex justify-center lg:sticky lg:top-20 lg:self-start">
+
+      {/* Preview panel */}
+      <div className={`flex justify-center lg:sticky lg:top-20 lg:block lg:self-start ${
+        showPreview ? "" : "hidden lg:flex"
+      }`}>
         {frame ? (
-          <div className="origin-top scale-[0.85] [margin-bottom:-130px]">
+          <div className="origin-top scale-[0.75] sm:scale-[0.85]" style={{ marginBottom: -120 }}>
             <WhatsAppChat
               data={lastGood}
               variant={variant}
@@ -141,7 +182,7 @@ export function Playground({ examples }: { examples: Example[] }) {
             />
           </div>
         ) : (
-          <div className="h-[720px] w-[390px] overflow-hidden rounded-xl border border-white/10">
+          <div className="h-[600px] w-[375px] overflow-hidden rounded-lg border border-white/8 sm:h-[720px] sm:w-[390px]">
             <WhatsAppChat
               data={lastGood}
               variant={variant}
