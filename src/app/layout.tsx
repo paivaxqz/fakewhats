@@ -29,11 +29,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${roboto.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col bg-white text-zinc-900">
+      <body className="flex min-h-full flex-col bg-zinc-950 text-zinc-100">
         <SiteHeader />
         {children}
-        <footer className="mt-auto border-t border-zinc-200 py-6 text-center text-xs text-zinc-500">
-          MIT · Not affiliated with WhatsApp or Meta. For mockups and demos only. Don&apos;t use it to deceive people.
+        <footer className="mt-auto border-t border-white/5 bg-zinc-950 py-6 text-center text-xs text-zinc-500">
+          MIT · Not affiliated with WhatsApp or Meta. For mockups and demos only.
         </footer>
       </body>
     </html>

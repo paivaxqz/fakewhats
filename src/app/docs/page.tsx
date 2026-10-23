@@ -131,8 +131,8 @@ components/fakewhats/schema.ts. JSON files can use
 
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="scroll-mt-20 border-t border-zinc-200 py-10 first:border-0 first:pt-0">
-      <h2 className="mb-4 text-2xl font-semibold tracking-tight">{title}</h2>
+    <section id={id} className="scroll-mt-20 border-t border-white/10 py-10 first:border-0 first:pt-0">
+      <h2 className="mb-4 text-2xl font-semibold tracking-tight text-white">{title}</h2>
       {children}
     </section>
   )
@@ -140,9 +140,9 @@ function Section({ id, title, children }: { id: string; title: string; children:
 
 function Table({ head, rows }: { head: string[]; rows: string[][] }) {
   return (
-    <div className="overflow-x-auto rounded-xl border border-zinc-200">
+    <div className="overflow-x-auto rounded-xl border border-white/10">
       <table className="w-full text-left text-sm">
-        <thead className="bg-zinc-50 text-xs uppercase tracking-wide text-zinc-500">
+        <thead className="bg-white/5 text-xs uppercase tracking-wide text-zinc-500">
           <tr>
             {head.map((h) => (
               <th key={h} className="px-4 py-2.5 font-medium">
@@ -153,9 +153,9 @@ function Table({ head, rows }: { head: string[]; rows: string[][] }) {
         </thead>
         <tbody>
           {rows.map((r) => (
-            <tr key={r[0]} className="border-t border-zinc-100 align-top">
+            <tr key={r[0]} className="border-t border-white/5 align-top">
               {r.map((c, i) => (
-                <td key={i} className={`px-4 py-2.5 ${i < 2 ? "font-mono text-[12.5px]" : "text-zinc-600"}`}>
+                <td key={i} className={`px-4 py-2.5 ${i < 2 ? "font-mono text-[12.5px] text-zinc-300" : "text-zinc-400"}`}>
                   {c}
                 </td>
               ))}
@@ -182,9 +182,9 @@ export default function DocsPage() {
   return (
     <main className="mx-auto grid w-full max-w-6xl gap-10 px-4 py-10 lg:grid-cols-[180px_minmax(0,1fr)]">
       <aside className="hidden lg:block">
-        <nav className="sticky top-20 flex flex-col gap-2 text-sm text-zinc-600">
+        <nav className="sticky top-20 flex flex-col gap-2 text-sm text-zinc-500">
           {toc.map(([id, label]) => (
-            <a key={id} href={`#${id}`} className="hover:text-zinc-900">
+            <a key={id} href={`#${id}`} className="hover:text-white">
               {label}
             </a>
           ))}
@@ -192,10 +192,10 @@ export default function DocsPage() {
       </aside>
       <div>
         <Section id="install" title="Installation">
-          <p className="mb-4 text-zinc-600">
+          <p className="mb-4 text-zinc-400">
             Requires React 19 and Tailwind CSS v4. The shadcn CLI copies the files into{" "}
-            <code className="font-mono text-sm">components/fakewhats/</code> and installs{" "}
-            <code className="font-mono text-sm">zod</code>.
+            <code className="font-mono text-sm text-zinc-300">components/fakewhats/</code> and installs{" "}
+            <code className="font-mono text-sm text-zinc-300">zod</code>.
           </p>
           <CodeBlock code={INSTALL_CMD} title="terminal" />
         </Section>
@@ -210,7 +210,7 @@ export default function Page() {
   return <WhatsAppChat data={conversation} variant="ios" frame />
 }`}
           />
-          <p className="mt-4 text-sm text-zinc-600">
+          <p className="mt-4 text-sm text-zinc-400">
             Importing a <code className="font-mono">.json</code> file? TypeScript widens string literals, so validate
             it with <code className="font-mono">ConversationSchema.parse(json)</code> (also gives friendly errors) or
             cast it with <code className="font-mono">as Conversation</code>.
@@ -230,17 +230,17 @@ export default function Page() {
         <Section id="messages" title="Message types">
           <div className="grid gap-6">
             {kinds.map((k) => (
-              <div key={k.type} className="grid items-start gap-4 rounded-xl border border-zinc-200 p-4 md:grid-cols-2">
+              <div key={k.type} className="grid items-start gap-4 rounded-xl border border-white/10 p-4 md:grid-cols-2">
                 <div className="min-w-0">
                   <h3 className="font-mono text-sm font-semibold">{k.type}</h3>
-                  <p className="mt-1 text-sm text-zinc-600">{k.note}</p>
+                  <p className="mt-1 text-sm text-zinc-400">{k.note}</p>
                   <pre className="mt-3 overflow-x-auto rounded-lg bg-zinc-950 p-3 font-mono text-[11.5px] text-zinc-100">
                     {JSON.stringify(k.messages, null, 2)}
                   </pre>
                 </div>
                 <ChatProvider
                   variant="android"
-                  className="flex min-h-[120px] overflow-hidden rounded-lg border border-zinc-200"
+                  className="flex min-h-[120px] overflow-hidden rounded-lg border border-white/10"
                 >
                   <MessageList messages={k.messages} />
                 </ChatProvider>
@@ -250,7 +250,7 @@ export default function Page() {
         </Section>
 
         <Section id="ai" title="Using with AI">
-          <p className="mb-4 text-zinc-600">
+          <p className="mb-4 text-zinc-400">
             The whole format is described in <code className="font-mono text-sm">schema.ts</code> (zod, with a{" "}
             <code className="font-mono text-sm">.describe()</code> on every field). The same thing is published as a{" "}
             <a href="/schema.json" className="underline">
@@ -262,7 +262,7 @@ export default function Page() {
         </Section>
 
         <Section id="compose" title="Composing">
-          <p className="mb-4 text-zinc-600">
+          <p className="mb-4 text-zinc-400">
             <code className="font-mono text-sm">WhatsAppChat</code> is built from exported pieces. Use them to build your
             own layout: <code className="font-mono text-sm">ChatHeader</code>,{" "}
             <code className="font-mono text-sm">MessageList</code>, <code className="font-mono text-sm">MessageRow</code>,{" "}
@@ -274,7 +274,7 @@ export default function Page() {
         </Section>
 
         <Section id="theming" title="Theming">
-          <p className="mb-4 text-zinc-600">
+          <p className="mb-4 text-zinc-400">
             Every color is a CSS variable on the root (<code className="font-mono text-sm">--wa-bg</code>,{" "}
             <code className="font-mono text-sm">--wa-in</code>, <code className="font-mono text-sm">--wa-out</code>,{" "}
             <code className="font-mono text-sm">--wa-accent</code>...). Override them with{" "}

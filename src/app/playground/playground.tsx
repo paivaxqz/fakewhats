@@ -42,14 +42,14 @@ function Segmented<T extends string>({
   onChange: (v: T) => void
 }) {
   return (
-    <div className="inline-flex rounded-lg border border-zinc-200 bg-zinc-100 p-0.5">
+    <div className="inline-flex rounded-lg border border-white/10 bg-white/5 p-0.5">
       {options.map((o) => (
         <button
           key={o}
           type="button"
           onClick={() => onChange(o)}
           className={`rounded-md px-2.5 py-1 text-xs font-medium ${
-            value === o ? "bg-white text-zinc-900 shadow-sm" : "text-zinc-500 hover:text-zinc-800"
+            value === o ? "bg-white/15 text-white shadow-sm" : "text-zinc-500 hover:text-zinc-300"
           }`}
         >
           {o}
@@ -91,7 +91,7 @@ export function Playground({ examples }: { examples: Example[] }) {
               setExampleId(ex.id)
               setText(JSON.stringify(ex.json, null, 2))
             }}
-            className="rounded-lg border border-zinc-200 bg-white px-2 py-1.5 text-sm"
+            className="rounded-lg border border-white/10 bg-white/5 px-2 py-1.5 text-sm text-zinc-200"
           >
             {examples.map((ex) => (
               <option key={ex.id} value={ex.id}>
@@ -104,7 +104,7 @@ export function Playground({ examples }: { examples: Example[] }) {
           <Segmented value={locale} options={["en", "pt", "es"] as const} onChange={setLocale} />
           <Segmented value={wallpaper} options={["doodle", "none"] as const} onChange={setWallpaper} />
           <Segmented value={textSize} options={["small", "medium", "large"] as const} onChange={setTextSize} />
-          <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-600">
+          <label className="flex items-center gap-1.5 text-xs font-medium text-zinc-400">
             <input type="checkbox" checked={frame} onChange={(e) => setFrame(e.target.checked)} />
             frame
           </label>
@@ -117,11 +117,11 @@ export function Playground({ examples }: { examples: Example[] }) {
           value={text}
           onChange={(e) => setText(e.target.value)}
           spellCheck={false}
-          className="min-h-[60vh] flex-1 resize-none rounded-xl border border-zinc-200 bg-zinc-950 p-4 font-mono text-[12.5px] leading-relaxed text-zinc-100 outline-none focus:ring-2 focus:ring-[#25d366]/50"
+          className="min-h-[60vh] flex-1 resize-none rounded-xl border border-white/10 bg-white/5 p-4 font-mono text-[12.5px] leading-relaxed text-zinc-100 outline-none focus:ring-2 focus:ring-[#25d366]/50"
         />
         <div
           className={`rounded-lg px-3 py-2 font-mono text-xs whitespace-pre-wrap ${
-            parsed.ok ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-700"
+            parsed.ok ? "bg-emerald-500/10 text-emerald-400" : "bg-red-500/10 text-red-400"
           }`}
         >
           {parsed.ok ? "✓ Valid conversation" : parsed.error}
@@ -141,7 +141,7 @@ export function Playground({ examples }: { examples: Example[] }) {
             />
           </div>
         ) : (
-          <div className="h-[720px] w-[390px] overflow-hidden rounded-xl border border-zinc-200">
+          <div className="h-[720px] w-[390px] overflow-hidden rounded-xl border border-white/10">
             <WhatsAppChat
               data={lastGood}
               variant={variant}
