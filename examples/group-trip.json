@@ -1,0 +1,50 @@
+{
+  "$schema": "https://fakewhats.vercel.app/schema.json",
+  "contact": {
+    "name": "Lucas",
+    "status": "online",
+    "story": "seen"
+  },
+  "pinned": {
+    "text": "Trip to Floripa 🏖️",
+    "total": 3
+  },
+  "messages": [
+    {
+      "from": "me",
+      "text": "Did you book the place?",
+      "time": "18:40",
+      "status": "read"
+    },
+    {
+      "type": "unread",
+      "text": "4 unread messages"
+    },
+    {
+      "from": "them",
+      "time": "18:52",
+      "share": true,
+      "text": "https://stays.example.com/rooms/48213-beach-house-campeche",
+      "preview": {
+        "title": "Beach house in Campeche · 4 guests",
+        "description": "https://stays.example.com/rooms/48213-beach-house-campeche",
+        "domain": "stays.example.com"
+      }
+    },
+    {
+      "from": "them",
+      "text": "found this one",
+      "time": "18:52"
+    },
+    {
+      "from": "them",
+      "text": "5 min from the beach",
+      "time": "18:53"
+    },
+    {
+      "from": "them",
+      "text": "what do you think?",
+      "time": "18:53"
+    }
+  ]
+}

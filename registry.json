@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "fakewhats",
+  "homepage": "https://fakewhats.vercel.app",
+  "items": [
+    {
+      "name": "whatsapp-chat",
+      "type": "registry:component",
+      "title": "WhatsApp Chat",
+      "description": "A static, fake WhatsApp chat screen (iOS and Android, light and dark) rendered from a typed JSON conversation.",
+      "dependencies": ["zod"],
+      "files": [
+        { "path": "registry/fakewhats/whatsapp-chat/whatsapp-chat.tsx", "type": "registry:component", "target": "components/fakewhats/whatsapp-chat.tsx" },
+        { "path": "registry/fakewhats/whatsapp-chat/schema.ts", "type": "registry:component", "target": "components/fakewhats/schema.ts" },
+        { "path": "registry/fakewhats/whatsapp-chat/theme.tsx", "type": "registry:component", "target": "components/fakewhats/theme.tsx" },
+        { "path": "registry/fakewhats/whatsapp-chat/message.tsx", "type": "registry:component", "target": "components/fakewhats/message.tsx" },
+        { "path": "registry/fakewhats/whatsapp-chat/chrome.tsx", "type": "registry:component", "target": "components/fakewhats/chrome.tsx" },
+        { "path": "registry/fakewhats/whatsapp-chat/format.tsx", "type": "registry:component", "target": "components/fakewhats/format.tsx" },
+        { "path": "registry/fakewhats/whatsapp-chat/icons.tsx", "type": "registry:component", "target": "components/fakewhats/icons.tsx" }
+      ]
+    }
+  ]
+}

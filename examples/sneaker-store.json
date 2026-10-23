@@ -1,0 +1,65 @@
+{
+  "$schema": "https://fakewhats.vercel.app/schema.json",
+  "contact": {
+    "name": "Stride Store",
+    "avatar": "/examples/avatar-shop.svg",
+    "status": "typing...",
+    "verified": true,
+    "business": true
+  },
+  "messages": [
+    {
+      "type": "date",
+      "text": "Yesterday"
+    },
+    {
+      "from": "me",
+      "text": "Do you have the Runner X in size 42?",
+      "time": "16:20",
+      "status": "read"
+    },
+    {
+      "type": "image",
+      "from": "them",
+      "src": "/examples/sneaker.svg",
+      "aspectRatio": 0.75,
+      "time": "16:21"
+    },
+    {
+      "from": "them",
+      "text": "Yes! Last 3 pairs in *Coral* ✨",
+      "time": "16:21"
+    },
+    {
+      "type": "date",
+      "text": "Today"
+    },
+    {
+      "type": "audio",
+      "from": "me",
+      "duration": "0:18",
+      "time": "09:12",
+      "status": "read",
+      "played": true
+    },
+    {
+      "from": "them",
+      "reply": {
+        "author": "You",
+        "text": "🎤 Voice message (0:18)"
+      },
+      "text": "Sure, I'll reserve a pair for you until 6pm 👟",
+      "time": "09:14"
+    },
+    {
+      "from": "me",
+      "text": "You're the best!!",
+      "time": "09:14",
+      "status": "read",
+      "reactions": [
+        "❤️",
+        "🔥"
+      ]
+    }
+  ]
+}

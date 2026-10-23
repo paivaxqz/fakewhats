@@ -1,0 +1,64 @@
+{
+  "$schema": "https://fakewhats.vercel.app/schema.json",
+  "contact": {
+    "name": "Nimbus Support",
+    "avatar": "/examples/avatar-shop.svg",
+    "status": "online",
+    "verified": true,
+    "business": true
+  },
+  "unreadCount": 3,
+  "messages": [
+    {
+      "type": "system",
+      "text": "Messages and calls are end-to-end encrypted. No one outside of this chat can read or listen to them."
+    },
+    {
+      "type": "date",
+      "text": "Today"
+    },
+    {
+      "from": "me",
+      "text": "Hi, my order hasn't arrived yet 😕",
+      "time": "10:02",
+      "status": "read"
+    },
+    {
+      "from": "them",
+      "text": "Hi! I'm *Nimbus*, the virtual assistant 🤖\nI can check that for you right now.",
+      "time": "10:02"
+    },
+    {
+      "type": "buttons",
+      "from": "them",
+      "text": "What is your order about?",
+      "footer": "Choose an option",
+      "buttons": [
+        "Track my order",
+        "Change address",
+        "Talk to a human"
+      ],
+      "time": "10:02"
+    },
+    {
+      "from": "me",
+      "text": "Track my order",
+      "time": "10:03",
+      "status": "read"
+    },
+    {
+      "from": "them",
+      "text": "Order *#48213* left our warehouse yesterday 🚚\nEstimated delivery: _today, 2pm – 6pm_.\n\nTrack it live: https://nimbus.example/t/48213",
+      "time": "10:03",
+      "reactions": [
+        "🙏"
+      ]
+    },
+    {
+      "from": "me",
+      "text": "Perfect, thank you!",
+      "time": "10:04",
+      "status": "delivered"
+    }
+  ]
+}

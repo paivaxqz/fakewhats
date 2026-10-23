@@ -1,0 +1,72 @@
+{
+  "$schema": "https://fakewhats.vercel.app/schema.json",
+  "contact": {
+    "name": "Bella Pizza",
+    "avatar": "/examples/avatar-pizza.svg",
+    "status": "business account",
+    "verified": true,
+    "business": true
+  },
+  "draft": "",
+  "messages": [
+    {
+      "type": "date",
+      "text": "Today"
+    },
+    {
+      "from": "me",
+      "text": "Good evening! Are you open?",
+      "time": "19:30",
+      "status": "read"
+    },
+    {
+      "type": "image",
+      "from": "them",
+      "src": "/examples/pizza.svg",
+      "caption": "We are! 🍕 Tonight's special: *Pepperoni Supreme* – 20% off",
+      "time": "19:30"
+    },
+    {
+      "type": "list",
+      "from": "them",
+      "text": "Pick your pizza from the menu below 👇",
+      "footer": "Delivery in ~35 min",
+      "buttonLabel": "See menu",
+      "time": "19:31",
+      "open": true,
+      "selected": "Pepperoni Supreme",
+      "sections": [
+        {
+          "title": "Classics",
+          "rows": [
+            {
+              "title": "Margherita",
+              "description": "Tomato, mozzarella, basil · $11"
+            },
+            {
+              "title": "Pepperoni Supreme",
+              "description": "Double pepperoni, oregano · $13.60"
+            },
+            {
+              "title": "Four Cheese",
+              "description": "Mozzarella, gorgonzola, parmesan, brie · $14"
+            }
+          ]
+        },
+        {
+          "title": "Drinks",
+          "rows": [
+            {
+              "title": "Lemonade",
+              "description": "500ml · $3"
+            },
+            {
+              "title": "Sparkling water",
+              "description": "500ml · $2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

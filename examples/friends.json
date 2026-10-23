@@ -1,0 +1,55 @@
+{
+  "$schema": "https://fakewhats.vercel.app/schema.json",
+  "contact": {
+    "name": "Ana",
+    "avatar": "/examples/avatar-ana.svg",
+    "status": "online",
+    "story": "new"
+  },
+  "draft": "On my way 🏃",
+  "messages": [
+    {
+      "type": "date",
+      "text": "Today"
+    },
+    {
+      "from": "them",
+      "text": "Did you see the game last night??",
+      "time": "20:01"
+    },
+    {
+      "from": "them",
+      "text": "~Unbelievable~ *UNREAL* ending 😱",
+      "time": "20:01"
+    },
+    {
+      "from": "me",
+      "text": "I fell asleep at halftime 😴",
+      "time": "20:05",
+      "status": "read",
+      "reactions": [
+        "😂"
+      ]
+    },
+    {
+      "type": "audio",
+      "from": "them",
+      "duration": "1:07",
+      "progress": 0.35,
+      "time": "20:06"
+    },
+    {
+      "from": "them",
+      "forwarded": true,
+      "text": "Pizza at mine tonight. Bring `snacks`!",
+      "time": "20:07"
+    },
+    {
+      "from": "me",
+      "text": "Count me in",
+      "time": "20:09",
+      "status": "delivered",
+      "edited": true
+    }
+  ]
+}
